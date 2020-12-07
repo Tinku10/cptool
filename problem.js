@@ -9,16 +9,16 @@ var argv = yargs
   .alias("problem", "p")
   .argv
 
-var cnt = 0;
-var p = argv.problem; var c = argv.contest;
+var cnt = 0; var p = argv.problem; var c = argv.contest; var arr = argv._; var curr = 65; var pointer = 0;
+
 if(p) cnt = argv._.length;
 else cnt = argv._[0];
-var arr = argv._; var curr = 'A'; var pointer = 0;
 
 router.post('/', (req, res) => {
   const data = req.body;
+  console.log(process.cwd());
 
-  fs.mkdir('./contest/'+(p? arr[pointer]: curr), {recursive: true}, function(err){
+  fs.mkdir(process.cwd()+'/contest/'+(p? arr[pointer]: String.fromCharCode(curr)), {recursive: true}, function(err){
     if(err) console.log(err);
   });
 
@@ -26,19 +26,22 @@ router.post('/', (req, res) => {
   for(var i=0; i<nooftest; i++){
     var currIn = data.tests[i].input;
     var currOut = data.tests[i].output;
-    fs.writeFile('./contest/' +(p? arr[pointer]: curr)+ '/' + 'in'+i, currIn, function(err){
+    fs.writeFile(process.cwd()+'/contest/' +(p? arr[pointer]: String.fromCharCode(curr))+ '/' + 'in'+i, currIn, function(err){
       if(err) console.log(err);
     })
-    fs.writeFile('./contest/' +(p? arr[pointer]: curr)+ '/' + 'out'+i, currOut, function(err){
+    fs.writeFile(process.cwd()+'/contest/' +(p? arr[pointer]: String.fromCharCode(curr))+ '/' + 'out'+i, currOut, function(err){
       if(err) console.log(err);
     })
   }
   console.log(chalk.green.bold('✔️ Parsed Problem '+chalk.underline(data.name))); 
-  if(p) pointer++;
-  else String.fromCharCode(curr.charCodeAt()+1);
 
+  curr++;
+  if(p) pointer++;
+  if(--cnt==0){
+    console.log('🦄'+ chalk.yellow(' Parse successful'));
+    process.exit(1);
+  } 
   res.sendStatus(200);
-  if(--cnt==0) process.kill(process.pid, 'SIGTERM');
 });
 
 module.exports = router;
