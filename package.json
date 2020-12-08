@@ -6,16 +6,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Tinku Kalita",
+  "author": "Tinku Kalita & Jintu Kalita",
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.0",
+    "colors": "^1.4.0",
     "diff": "^5.0.0",
     "express": "^4.17.1",
     "file-system": "^2.2.2",
     "yargs": "^16.2.0"
   },
   "bin": {
-    "cptool": "index.js"
+    "run": "index.js"
   }
 }

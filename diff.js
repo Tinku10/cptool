@@ -1,12 +1,12 @@
 const app = require('express')();
-const bodyParser = require('body-parser');
+const bodyparser = require('body-parser');
 const chalk = require('chalk');
 var fs = require('file-system');
-var execSync = require('child_process').execSync;
+var execsync = require('child_process').execsync;
 
 const dir=process.cwd();
 const chars = dir.split('/');
-var fileName = chars[chars.length-1];
+var filename = chars[chars.length-1];
 
 module.exports = {
   diffCal: ()=>{
@@ -19,14 +19,10 @@ module.exports = {
         var actualans=fs.readFileSync(dir+"/ans",{encoding:'utf8', flag:'r'});
         var out=actualans.split("\n");
         var exp=ans.split("\n");
-        for(var last=out.length-1;last>=0;last--){
-          if(out[last]=='')out.pop();
-          else break;
-        }
-        for(var last=exp.length-1;last>=0;last--){
-          if(exp[last]=='')exp.pop();
-          else break;
-        }
+        while(out[out.length-1]=='') out.pop();
+        while(exp[exp.length-1]=='') exp.pop();
+        for(var str of out)str.trim();
+        for(var str of exp)str.trim();
         var diffs=0;
         for(var lines=0;lines<exp.length;lines++){
           if(lines<out.length){

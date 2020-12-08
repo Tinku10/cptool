@@ -13,10 +13,10 @@ function parseProblem(arr, pointer, data){
     fs.writeFileSync(process.cwd()+'/contest/' +arr[pointer]+ '/' + 'in'+i,currIn);
     fs.writeFileSync(process.cwd()+'/contest/' +arr[pointer]+ '/' + 'out'+i,currOut);
   }
-  console.log(chalk.green.bold('✔️ Parsed Problem '+chalk.underline(data.name))); 
+  console.log(chalk.green.bold('Parsed Problem '+chalk.underline(data.name))); 
 
   if(pointer+1==arr.length){
-    console.log('🦄'+ chalk.yellow(' Parse successful'));
+    console.log(chalk.yellow('Parse successful'));
     process.exit(1);
   }
 }
@@ -32,10 +32,10 @@ function parseContest(curr, total, data){
     fs.writeFileSync(process.cwd()+'/contest/' +String.fromCharCode(65+curr)+ '/' + 'in'+i, currIn);
     fs.writeFileSync(process.cwd()+'/contest/' +String.fromCharCode(65+curr)+ '/' + 'out'+i, currOut);
   }
-  console.log(chalk.green.bold('✔️ Parsed Problem '+chalk.underline(data.name))); 
+  console.log(chalk.green.bold('Parsed Problem '+chalk.underline(data.name))); 
 
   if(curr+1==total){
-    console.log('🦄'+ chalk.yellow(' Parse successful'));
+    console.log(chalk.yellow(' Parse successful'));
     process.exit(1);
   } 
 }
