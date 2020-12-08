@@ -5,6 +5,7 @@ var router = express.Router();
 var diff = require('diff');
 
 function compare(){
+  console.log('hello');
   var len;
   var inputs = [], outputs = [];
   fs.readdir(process.cwd(), (err, files)=>{
@@ -31,4 +32,4 @@ function compare(){
   }
 }
 
-module.exports = router;
+module.exports = {compare: compare};

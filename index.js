@@ -6,11 +6,28 @@ const chalk = require('chalk');
 var fs = require('file-system');
 var problem = require('./problem.js')
 var diff = require('./diff.js')
+const yargs = require('yargs')
+
+var argv = yargs
+  .command('contest <number>', 'fetch data from a contest')
+  .command('problem [names...]', 'fetch the list of problems')
+  .help()
+  .argv
 
 const port = 10045;
 app.use(bodyParser.json());
-app.use('/', problem);
-diff.compare();
+
+var cnt = 0; var p = 0;
+
+app.post('/', (req, res)=>{
+  const data = req.body;
+  if(argv._[0]=='contest'){
+    problem.pc(p++, cnt, data);
+  } 
+  else if(argv._[0]=='problem'){
+    problem.pp(argv.names, p++, data);
+  }
+})
 
 var server = app.listen(port, err => {
   if (err) {
@@ -18,6 +35,9 @@ var server = app.listen(port, err => {
     process.exit(1);
   }
 
-  console.log(chalk.yellow('Start Parsing...'));
+  console.log(chalk.yellow('Server Started 🕒'));
+  if(argv._[0]=='contest') cnt = argv.number;
+  else if(argv._[0]=='problem') cnt = argv.names.length;
 });
+
 
