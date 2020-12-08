@@ -1,5 +1,5 @@
 {
-  "name": "cptool",
+  "name": "run",
   "version": "1.0.0",
   "description": "Competitive Programming Tool to fetch and test samples",
   "main": "index.js",

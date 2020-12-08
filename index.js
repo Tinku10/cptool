@@ -11,6 +11,7 @@ const yargs = require('yargs')
 var argv = yargs
   .command('contest <number>', 'fetch data from a contest')
   .command('problem [names...]', 'fetch the list of problems')
+  .command('test', 'runs the code against outputs')
   .help()
   .argv
 
@@ -38,6 +39,7 @@ var server = app.listen(port, err => {
   console.log(chalk.yellow('Server Started 🕒'));
   if(argv._[0]=='contest') cnt = argv.number;
   else if(argv._[0]=='problem') cnt = argv.names.length;
+  else if(argv._[0]=='test') diff.diffCal();
 });
 
 

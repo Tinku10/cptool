@@ -5,21 +5,13 @@ var router = express.Router();
 const yargs = require('yargs')
 
 function parseProblem(arr, pointer, data){
-
-  fs.mkdir(process.cwd()+'/contest/'+arr[pointer], {recursive: true}, function(err){
-    if(err) console.log(err);
-  });
-
+  fs.mkdirSync(process.cwd()+"/contest");
   var nooftest = data.tests.length;
-  for(var i=0; i<nooftest; i++){
-    var currIn = data.tests[i].input;
-    var currOut = data.tests[i].output;
-    fs.writeFile(process.cwd()+'/contest/' +arr[pointer]+ '/' + 'in'+i+1, currIn, function(err){
-      if(err) console.log(err);
-    })
-    fs.writeFile(process.cwd()+'/contest/' +arr[pointer]+ '/' + 'out'+i+1, currOut, function(err){
-      if(err) console.log(err);
-    })
+  for(var i=1; i<=nooftest; i++){
+    var currIn = data.tests[i-1].input;
+    var currOut = data.tests[i-1].output;
+    fs.writeFileSync(process.cwd()+'/contest/' +arr[pointer]+ '/' + 'in'+i,currIn);
+    fs.writeFileSync(process.cwd()+'/contest/' +arr[pointer]+ '/' + 'out'+i,currOut);
   }
   console.log(chalk.green.bold('✔️ Parsed Problem '+chalk.underline(data.name))); 
 
@@ -31,20 +23,14 @@ function parseProblem(arr, pointer, data){
 
 function parseContest(curr, total, data){
 
-  fs.mkdir(process.cwd()+'/contest/'+String.fromCharCode(65+curr), {recursive: true}, function(err){
-    if(err) console.log(err);
-  });
+  fs.mkdirSync(process.cwd()+'/contest/'+String.fromCharCode(65+curr));
 
   var nooftest = data.tests.length;
-  for(var i=0; i<nooftest; i++){
-    var currIn = data.tests[i].input;
-    var currOut = data.tests[i].output;
-    fs.writeFile(process.cwd()+'/contest/' +String.fromCharCode(65+curr)+ '/' + 'in'+i+1, currIn, function(err){
-      if(err) console.log(err);
-    })
-    fs.writeFile(process.cwd()+'/contest/' +String.fromCharCode(65+curr)+ '/' + 'out'+i+1, currOut, function(err){
-      if(err) console.log(err);
-    })
+  for(var i=1; i<=nooftest; i++){
+    var currIn = data.tests[i-1].input;
+    var currOut = data.tests[i-1].output;
+    fs.writeFileSync(process.cwd()+'/contest/' +String.fromCharCode(65+curr)+ '/' + 'in'+i, currIn);
+    fs.writeFileSync(process.cwd()+'/contest/' +String.fromCharCode(65+curr)+ '/' + 'out'+i, currOut);
   }
   console.log(chalk.green.bold('✔️ Parsed Problem '+chalk.underline(data.name))); 
 
