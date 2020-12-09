@@ -35,7 +35,7 @@ function parseContest(curr, total, data){
   console.log(chalk.green.bold('Parsed Problem '+chalk.underline(data.name))); 
 
   if(curr+1==total){
-    console.log(chalk.yellow(' Parse successful'));
+    console.log(chalk.yellow('Parse successful'));
     process.exit(1);
   } 
 }

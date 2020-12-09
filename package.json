@@ -4,7 +4,7 @@
   "description": "Competitive Programming Tool to fetch and test samples",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm start"
   },
   "author": "Tinku Kalita & Jintu Kalita",
   "license": "ISC",
@@ -18,5 +18,15 @@
   },
   "bin": {
     "run": "index.js"
+  },
+  "pkg": {
+    "assets": [
+      "./node_modules/chalk/**",
+      "./node_modules/colors/**",
+      "./node_modules/diff/**",
+      "./node_modules/express/**",
+      "./node_modules/file-system/**",
+      "./node_modules/yargs/**"
+    ]
   }
 }
