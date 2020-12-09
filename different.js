@@ -15,14 +15,14 @@ module.exports = {
   diffCal: ()=>{
     fs.readdir(dir, (err, files) => {
  
-      var len=files.length;
       var passed=0;
       execSync("g++ -std=c++17 "+fileName+".cpp -o "+fileName);
+      var len=files.length;
       for(var i=1;i<=(len-2)/2;i++){ 
         execSync("./" +fileName+ " < in"+i+" > ans");
         var ans=fs.readFileSync(dir+"/out"+i,{encoding:'utf8', flag:'r'});
         var actualans=fs.readFileSync(dir+"/ans",{encoding:'utf8', flag:'r'});
-        var diff = Diff.diffWords(actualans, ans);
+        var diff = Diff.diffTrimmedLines(actualans, ans, {newlineIsToken: true});
         var cnt = 0;
         diff.forEach((part) => {
           // green for additions, red for deletions
@@ -30,8 +30,9 @@ module.exports = {
           const color = part.added ? 'brightGreen' :
             part.removed ? 'red' : 'gray';
           process.stderr.write(part.value[color]);
-          if(part.removed) cnt++;
+          if(part.removed || part.added) cnt++;
         });
+        console.log();
         if(cnt==0){
           console.log(chalk.green.bold('Passed Pretest '+ i))
           passed++;
